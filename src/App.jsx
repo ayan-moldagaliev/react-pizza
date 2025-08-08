@@ -1,9 +1,35 @@
-import Header from '@components/Header';
-import Categories from '@components/Categories';
-import Sort from '@components/Sort';
-import PizzaBlock from '@components/PizzaBlock';
+import Header from "@components/Header";
+import Categories from "@components/Categories";
+import Sort from "@components/Sort";
+import PizzaBlock from "@components/PizzaBlock";
+import { useEffect, useState } from "react";
 
 const App = () => {
+  const [pizzas, setPizzas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPizzas = async () => {
+      try {
+        const res = await fetch(
+          "https://6892363d447ff4f11fbf9279.mockapi.io/pizza"
+        );
+        if (!res.ok) {
+          throw new Error(`Ошибка запроса: ${res.status}`);
+        }
+        const data = await res.json();
+        setPizzas(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPizzas();
+  }, []);
+
   return (
     <div className="wrapper">
       <Header />
@@ -15,12 +41,16 @@ const App = () => {
           </div>
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
-             <PizzaBlock />
+            {
+              pizzas.map((item) => (
+                <PizzaBlock key={item.id} props={item} />
+              ))
+            }
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default App;
