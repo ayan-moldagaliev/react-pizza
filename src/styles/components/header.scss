@@ -19,14 +19,23 @@
 
     h1 {
       color: #181818;
-      font-size: 24px;
+      font-size: clamp(12px, 2vw, 24px);
       letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
     }
 
     p {
       color: #7b7b7b;
+      font-size: clamp(10px, 1.5vw, 16px);
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
     }
   }
 }

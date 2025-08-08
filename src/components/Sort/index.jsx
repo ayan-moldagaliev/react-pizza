@@ -1,8 +1,25 @@
+import { useState } from "react";
+
 const Sort = () => {
+  const sorts = ["популярности", "цене", "алфавиту"];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const currentSort = sorts[activeIndex];
+
+  const handleClick = (index) => {
+    setActiveIndex(index);
+    setShowPopup(false);
+  };
+
   return (
     <div className="sort">
-      <div className="sort__label">
+      <div
+        className="sort__label"
+        onClick={() => setShowPopup((prevState) => !prevState)}
+      >
         <svg
+          className={showPopup ? "sort__icon sort__icon--active" : "sort__icon"}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -15,15 +32,23 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span>{currentSort}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {showPopup && (
+        <div className="sort__popup">
+          <ul>
+            {sorts.map((sort, i) => (
+              <li
+                key={sort}
+                onClick={() => handleClick(i)}
+                className={activeIndex === i ? "active" : ""}
+              >
+                {sort}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
