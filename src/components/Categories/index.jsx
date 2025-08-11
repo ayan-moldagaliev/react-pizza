@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Categories = () => {
+const Categories = ({categoryId, onChangeCategory}) => {
   const categories = [
     "Все",
     "Мясные",
@@ -9,12 +9,7 @@ const Categories = () => {
     "Острые",
     "Закрытые",
   ];
-  const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-
-  const handleClick = (index) => {
-    setActiveIndex(index);
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,8 +25,8 @@ const Categories = () => {
         <div className="categories__mobile">
           <div className="select-wrapper">
             <select
-              value={activeIndex}
-              onChange={(e) => handleClick(Number(e.target.value))}
+              value={categoryId}
+              onChange={(e) => onChangeCategory(Number(e.target.value))}
             >
               {categories.map((category, index) => (
                 <option key={category} value={index}>
@@ -46,8 +41,8 @@ const Categories = () => {
           {categories.map((category, index) => (
             <li
               key={category}
-              onClick={() => handleClick(index)}
-              className={activeIndex === index ? "active" : ""}
+              onClick={() => onChangeCategory(index)}
+              className={categoryId === index ? "active" : ""}
             >
               {category}
             </li>
