@@ -1,0 +1,42 @@
+.root {
+  min-width: 300px;
+  position: relative;
+
+  &:focus-within .search__icon {
+    opacity: 0.8;
+  }
+
+  .search__icon {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    opacity: 0.2;
+    transition: opacity 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .close__icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    opacity: 0.2;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  .input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 15px;
+    padding-left: 45px;
+  }
+}
